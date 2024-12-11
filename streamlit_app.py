@@ -6,6 +6,13 @@ def main():
     st.title("vidibebapps")
     st.image("President_University_Logo (2).png",width=150)
 
+    # Sidebar untuk nama anggota
+    st.sidebar.title("Anggota Kelompok")
+    st.sidebar.write("1. Dimas Andriawan")
+    st.sidebar.write("2. Beby Gunawan")
+    st.sidebar.write("3. Virgianwan Lisnanda")
+
+
     st.write("Unggah gambar Anda dan pilih derajat rotasi untuk melihat hasilnya.")
 
     # Upload file
