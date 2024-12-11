@@ -1,7 +1,6 @@
 import streamlit as st
 from PIL import Image
 import io
-from fpdf import FPDF
 
 def main():
     st.title("vidibebapps")
@@ -54,22 +53,6 @@ def main():
                 data=byte_im,
                 file_name="gambar_dirotasi.jpg",
                 mime="image/jpeg",
-            )
-        elif download_format == "PDF":
-            pdf = FPDF()
-            pdf.add_page()
-            rotated_image = rotated_image.convert("RGB")
-            buf_pdf = io.BytesIO()
-            rotated_image.save(buf_pdf, format="JPEG")
-            pdf.image(buf_pdf, x=10, y=10, w=190)
-            pdf_buf = io.BytesIO()
-            pdf.output(pdf_buf)
-            pdf_data = pdf_buf.getvalue()
-            st.download_button(
-                label="Unduh Gambar Hasil Rotasi (PDF)",
-                data=pdf_data,
-                file_name="gambar_dirotasi.pdf",
-                mime="application/pdf",
             )
 
 if __name__ == "__main__":
