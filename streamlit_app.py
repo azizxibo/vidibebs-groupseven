@@ -17,7 +17,7 @@ def main():
 
         # Tampilkan gambar asli
         st.subheader("Gambar Asli:")
-        st.image(image, caption="Gambar asli yang diunggah", use_counter_width=True)
+        st.image(image, caption="Gambar asli yang diunggah", use_container_width=True)
 
         # Input derajat rotasi
         degree = st.slider("Pilih derajat rotasi", min_value=0, max_value=360, value=0)
@@ -27,7 +27,7 @@ def main():
 
         # Tampilkan gambar hasil rotasi
         st.subheader("Gambar Setelah Dirotasi:")
-        st.image(rotated_image, caption=f"Gambar setelah dirotasi {degree} derajat", use_counter_width=True)
+        st.image(rotated_image, caption=f"Gambar setelah dirotasi {degree} derajat", use_container_width=True)
 
         # Pilih format unduhan
         st.subheader("Pilih Format Unduhan:")
