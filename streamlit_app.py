@@ -4,6 +4,7 @@ import io
 
 def main():
     st.title("vidibebapps")
+    st.image("President_University_Logo (2).png",width=150)
 
     st.write("Unggah gambar Anda dan pilih derajat rotasi untuk melihat hasilnya.")
 
@@ -30,7 +31,7 @@ def main():
 
         # Pilih format unduhan
         st.subheader("Pilih Format Unduhan:")
-        download_format = st.radio("Format file:", ("PNG", "JPG", "PDF"))
+        download_format = st.radio("Format file:", ("PNG", "JPG"))
 
         # Simpan file ke buffer
         buf = io.BytesIO()
