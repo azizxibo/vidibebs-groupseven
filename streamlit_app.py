@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 import io
+from fpdf import FPDF
 
 def main():
     st.title("vidibebapps")
@@ -28,17 +29,48 @@ def main():
         st.subheader("Gambar Setelah Dirotasi:")
         st.image(rotated_image, caption=f"Gambar setelah dirotasi {degree} derajat", use_column_width=True)
 
-        # Tombol untuk mengunduh hasil gambar
-        buf = io.BytesIO()
-        rotated_image.save(buf, format="PNG")
-        byte_im = buf.getvalue()
+        # Pilih format unduhan
+        st.subheader("Pilih Format Unduhan:")
+        download_format = st.radio("Format file:", ("PNG", "JPG", "PDF"))
 
-        st.download_button(
-            label="Unduh Gambar Hasil Rotasi",
-            data=byte_im,
-            file_name="gambar_dirotasi.png",
-            mime="image/png",
-        )
+        # Simpan file ke buffer
+        buf = io.BytesIO()
+
+        if download_format == "PNG":
+            rotated_image.save(buf, format="PNG")
+            byte_im = buf.getvalue()
+            st.download_button(
+                label="Unduh Gambar Hasil Rotasi (PNG)",
+                data=byte_im,
+                file_name="gambar_dirotasi.png",
+                mime="image/png",
+            )
+        elif download_format == "JPG":
+            rotated_image = rotated_image.convert("RGB")  # Ensure no alpha channel for JPG
+            rotated_image.save(buf, format="JPEG")
+            byte_im = buf.getvalue()
+            st.download_button(
+                label="Unduh Gambar Hasil Rotasi (JPG)",
+                data=byte_im,
+                file_name="gambar_dirotasi.jpg",
+                mime="image/jpeg",
+            )
+        elif download_format == "PDF":
+            pdf = FPDF()
+            pdf.add_page()
+            rotated_image = rotated_image.convert("RGB")
+            buf_pdf = io.BytesIO()
+            rotated_image.save(buf_pdf, format="JPEG")
+            pdf.image(buf_pdf, x=10, y=10, w=190)
+            pdf_buf = io.BytesIO()
+            pdf.output(pdf_buf)
+            pdf_data = pdf_buf.getvalue()
+            st.download_button(
+                label="Unduh Gambar Hasil Rotasi (PDF)",
+                data=pdf_data,
+                file_name="gambar_dirotasi.pdf",
+                mime="application/pdf",
+            )
 
 if __name__ == "__main__":
     main()
